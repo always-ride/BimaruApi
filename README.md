@@ -36,3 +36,7 @@ Docker-Image bauen und Container starten:
 docker build -t bimaru-api .
 docker run -p 8080:8080 bimaru-api
 ```
+
+## Deployment
+
+Unter [bimaruapi.fly.dev/api/](https://bimaruapi.fly.dev/api/) kann das Projekt eingesehen werde.
