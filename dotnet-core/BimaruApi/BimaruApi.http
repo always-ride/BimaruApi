@@ -1,0 +1,6 @@
+@BimaruApi_HostAddress = http://localhost:5033
+
+GET {{BimaruApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
