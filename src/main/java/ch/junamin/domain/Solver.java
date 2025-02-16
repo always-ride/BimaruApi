@@ -1,8 +1,8 @@
-package ch.junamin.services;
+package ch.junamin.domain;
 
-import java.util.*;
-
-import ch.junamin.models.ISolvableBoard;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Solver {
     private final ISolvableBoard board;

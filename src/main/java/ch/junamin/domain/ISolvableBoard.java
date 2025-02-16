@@ -1,4 +1,4 @@
-package ch.junamin.models;
+package ch.junamin.domain;
 
 public interface ISolvableBoard {
     void resetBoard();

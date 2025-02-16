@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.junamin.models.Board;
-import ch.junamin.services.Solver;
+import ch.junamin.domain.Board;
+import ch.junamin.domain.Solver;
 
 @RestController
 @RequestMapping("/api")

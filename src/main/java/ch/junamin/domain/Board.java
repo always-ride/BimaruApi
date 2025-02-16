@@ -1,4 +1,4 @@
-package ch.junamin.models;
+package ch.junamin.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
