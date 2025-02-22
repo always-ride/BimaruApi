@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class HomeController {
 
-    @RequestMapping("/")
+    @RequestMapping("/home")
     public String home() {
         return "Hello Bimaru Universe!";
     }

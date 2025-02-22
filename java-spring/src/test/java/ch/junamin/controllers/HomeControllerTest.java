@@ -17,7 +17,7 @@ class HomeControllerTest {
 
     @Test
     void home_shouldReturnHelloBimaruUniverse() throws Exception {
-        mockMvc.perform(get("/api/"))
+        mockMvc.perform(get("/api/home"))
                 .andExpect(status().isOk()) // Erwartet HTTP 200 OK
                 .andExpect(content().string("Hello Bimaru Universe!"));
     }
