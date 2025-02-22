@@ -1,4 +1,3 @@
-using FluentAssertions;
 using BimaruApi.Domain;
 
 namespace BimaruApi.Tests.Domain
@@ -22,12 +21,12 @@ namespace BimaruApi.Tests.Domain
                     3 4 1 4 2 0 1 0 3 2
                 """));
 
-            sut.Solve().Should().BeTrue();
+            Assert.True(sut.Solve());
             
             List<string> solutions = sut.GetUniqueSolutions();
-            sut.GetSolutionsCount().Should().Be(1);
-            solutions.Should().HaveCount(1);
-            solutions.First().NormalizeLineEndings().Should().Be("""
+            Assert.Equal(1, sut.GetSolutionsCount());
+            Assert.Single(solutions);
+            Assert.Equal("""
                 6 | ~ < □ □ > ~ o ~ ~ o
                 0 | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
                 1 | ~ o ~ ~ ~ ~ ~ ~ ~ ~
@@ -39,7 +38,7 @@ namespace BimaruApi.Tests.Domain
                 3 | □ ~ ~ □ ~ ~ ~ ~ ^ ~
                 3 | v ~ ~ v ~ ~ ~ ~ v ~
                     3 4 1 4 2 0 1 0 3 2
-                """.NormalizeLineEndings());
+                """.NormalizeLineEndings(), solutions[0].NormalizeLineEndings());
         }
     }
 }
