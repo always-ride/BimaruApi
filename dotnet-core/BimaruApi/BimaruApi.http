@@ -1,0 +1,20 @@
+@BimaruApi_HostAddress = http://localhost:5033
+
+### API-Request für den Test, ob das API läuft
+GET {{BimaruApi_HostAddress}}/api/home
+
+### API-Request zum Lösen eines Bimaru-Puzzles
+POST {{BimaruApi_HostAddress}}/api/solve
+Content-Type: text/plain
+
+6 | . . . . . . . . ~ .
+0 | . . . . . . . . . .
+1 | . . . . . . . . . .
+0 | . . . . . . . . . .
+2 | . . . . . . . . . .
+3 | . . . . . . . . < .
+0 | . . . . . . . . . .
+2 | . . . . . . . . . .
+3 | . ~ . . . . . . . .
+3 | . . . . . . . . . .
+    3 4 1 4 2 0 1 0 3 2
