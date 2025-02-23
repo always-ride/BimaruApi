@@ -42,5 +42,32 @@ namespace BimaruApi.Controllers
                 return BadRequest("Fehler beim Verarbeiten der Anfrage.");
             }
         }
+
+        [HttpPost("solve/json")]
+        [Consumes("application/json")]
+        public IActionResult SolveBimaruJson([FromBody] SolveRequest request)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(request.Board))
+                {
+                    return BadRequest("Das Board darf nicht leer sein.");
+                }
+
+                Board board = new(request.Board);
+                Solver solver = new(board);
+                solver.Solve();
+                var solutions = solver.GetUniqueSolutions();
+
+                return Ok(solutions.Count > 0
+                    ? new { solutions = solutions.Select(s => s.Split('\n')).ToArray() } 
+                    : new { info = "Keine Lösung gefunden." });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler beim Verarbeiten der Anfrage: {ex.Message}");
+                return BadRequest(new { error = "Fehler beim Verarbeiten der Anfrage.", details = ex.Message });
+            }
+        }
     }
 }
