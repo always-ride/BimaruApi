@@ -9,5 +9,6 @@ namespace BimaruApi.Domain
         bool IsValidSolution();
         int GetSize();
         string AsText { get; }
+        int[][] Ships { get; }
     }
 }

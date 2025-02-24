@@ -7,17 +7,10 @@ GET {{BimaruApi_HostAddress}}/api/home
 POST {{BimaruApi_HostAddress}}/api/solve
 Content-Type: text/plain
 
-6 | . . . . . . . . ~ .
-0 | . . . . . . . . . .
-1 | . . . . . . . . . .
-0 | . . . . . . . . . .
-2 | . . . . . . . . . .
-3 | . . . . . . . . < .
-0 | . . . . . . . . . .
-2 | . . . . . . . . . .
-3 | . ~ . . . . . . . .
-3 | . . . . . . . . . .
-    3 4 1 4 2 0 1 0 3 2
+1 | . . .
+1 | . . .
+2 | v . .
+    2 0 2
 
 ### API-Request zum Lösen eines Bimaru-Puzzles
 POST {{BimaruApi_HostAddress}}/api/solve/json
