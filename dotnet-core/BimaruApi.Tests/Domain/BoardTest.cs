@@ -8,30 +8,24 @@ namespace BimaruApi.Tests.Domain
         public void TestParseInput()
         {
             var sut = new TestableBoard("""
-                6 | . . . . . . . . ~ .
-                0 | . . . . . . . . . .
-                1 | . . . . . . . . . .
-                0 | . . . . . . . . . .
-                2 | . . . . . . . . . .
-                3 | . . . . . . . . < .
-                0 | . . . . . . . . . .
-                2 | . . . . . . . . . .
-                3 | . ~ . . . . . . . .
-                3 | . . . . . . . . . .
-                    3 4 1 4 2 0 1 0 3 2
+                4 | . . . .
+                0 | . . . .
+                2 | . . . .
+                0 | . . . .
+                    1 2 1 2
                 """);
 
-            Assert.Equal([6, 0, 1, 0, 2, 3, 0, 2, 3, 3], sut.GetRowConstraints());
-            Assert.Equal([3, 4, 1, 4, 2, 0, 1, 0, 3, 2], sut.GetColConstraints());
+            Assert.Equal([4, 0, 2, 0], sut.GetRowConstraints());
+            Assert.Equal([1, 2, 1, 2], sut.GetColConstraints());
         }
 
         [Theory]
-        [InlineData(0, 2, 1, 'H', true)]
-        [InlineData(0, 6, 1, 'H', false)]
-        [InlineData(0, 3, 3, 'H', true)]
-        [InlineData(0, 4, 3, 'H', false)]
-        [InlineData(2, 5, 1, 'H', true)]
-        [InlineData(2, 5, 1, 'V', true)]
+        [InlineData(0, 1, 1, 'H', true)]
+        [InlineData(0, 1, 3, 'H', true)]
+        [InlineData(1, 0, 1, 'H', false)]
+        [InlineData(2, 1, 1, 'H', false)]
+        [InlineData(2, 0, 1, 'H', true)]
+        [InlineData(2, 0, 1, 'V', true)]
         public void TestCanPlaceShip(int row, int col, int length, char direction, bool expected)
         {
             var sut = new TestableBoard(SIMPLE_BOARD);
@@ -39,8 +33,8 @@ namespace BimaruApi.Tests.Domain
         }
 
         [Theory]
-        [InlineData(0, 2, 3, 'H', "3 | . . < □ > . . . . .")]
-        [InlineData(2, 5, 1, 'V', "6 | < □ □ > . o . . o .")]
+        [InlineData(0, 1, 3, 'H', "3 | . < □ >")]
+        [InlineData(2, 0, 1, 'V', "3 | o . < >")]
         public void TestPlaceShip(int row, int col, int length, char direction, string expected)
         {
             var sut = new TestableBoard(SIMPLE_BOARD);
@@ -48,15 +42,15 @@ namespace BimaruApi.Tests.Domain
             Assert.Equal(expected, sut.GetLine(row, 'H').Replace("^", "<").Replace("v", ">"));
         }
 
-        private static readonly string SIMPLE_BOARD =
-            "3 | . . . . . . . . . . \n" +
-            "0 | . . . . . . . . . . \n" +
-            "6 | < □ □ > . . . . o . \n" +
-            "0 | . . . . . . . . . . \n" +
-            string.Concat(Enumerable.Repeat("0 | . . . . . . . . . . \n", 6)) +
-            "    1 1 2 2 1 1 0 0 1 0";
+        private static readonly string SIMPLE_BOARD = """
+            3 | . . . .
+            0 | . . . .
+            3 | . . < >
+            0 | . . . .
+                1 1 2 2
+            """;
 
-        class TestableBoard(string puzzle) : Board(puzzle, 10)
+        class TestableBoard(string puzzle) : Board(puzzle)
         {
             public int[] GetRowConstraints() => rowConstraints;
             public int[] GetColConstraints() => colConstraints;

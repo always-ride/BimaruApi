@@ -8,26 +8,28 @@ namespace BimaruApi.Domain
         protected readonly int[] colConstraints;
         protected readonly List<Cell> initialCells;
 
-        public Board(string puzzle) : this(puzzle, 10) { }
-
-        protected Board(string puzzle, int size)
-        {
-            this.size = size;
-            grid = new char[this.size, this.size];
-            rowConstraints = new int[this.size];
-            colConstraints = new int[this.size];
-            initialCells = new List<Cell>();
-            ParseInput(puzzle);
-        }
-
-        private void ParseInput(string puzzle)
+        public Board(string puzzle)
         {
             var lines = puzzle.NormalizeLineEndings().Split('\n');
+            size = lines.Length - 1;
+            rowConstraints = new int[size];
+            colConstraints = new int[size];
+            grid = new char[size, size];
+            initialCells = [];
+
+            ParseInput(lines);
+            ValidateBoard();
+            Ships = GetShips(rowConstraints.Sum());
+        }
+
+        private void ParseInput(string[] lines)
+        {
             for (int i = 0; i < size; i++)
             {
                 var parts = lines[i].Split('|');
                 rowConstraints[i] = int.Parse(parts[0].Trim());
                 var rowValues = parts[1].Trim().Split(' ');
+
                 for (int j = 0; j < size; j++)
                 {
                     grid[i, j] = rowValues[j][0];
@@ -42,6 +44,23 @@ namespace BimaruApi.Domain
             {
                 colConstraints[j] = int.Parse(colValues[j]);
             }
+        }
+
+        private static int[][] GetShips(int shipCount) => shipCount switch
+        {
+            (1) => [[1, 1]],
+            (4) => [[2, 1], [1, 2]],
+            (10) => [[3, 1], [2, 2], [1, 3]],
+            (20) => [[4, 1], [3, 2], [2, 3], [1, 4]],
+            _ => [],
+        };
+
+        public void ValidateBoard()
+        {
+            if (size <= 0 || 
+                rowConstraints.Length != colConstraints.Length || 
+                rowConstraints.Sum() != colConstraints.Sum())
+                throw new InvalidOperationException("Ungültiges Board-Format.");          
         }
 
         public void ResetBoard()
@@ -119,6 +138,7 @@ namespace BimaruApi.Domain
         public void PlaceShip(int row, int col, int size, char direction)
         {
             if (!CanPlaceShip(row, col, size, direction)) return;
+
             string representation = GetShipRepresentation(size, direction);
             for (int i = 0; i < size; i++)
             {
@@ -153,15 +173,15 @@ namespace BimaruApi.Domain
 
         public int GetSize() => size;
 
-        public string AsText => ToString().Replace(".", "~");
+        public string AsText => ToString();
 
         public override string ToString()
         {
             var rows = Enumerable
-                .Range(0, rowConstraints.Length)
+                .Range(0, size)
                 .Select(i => $"{rowConstraints[i]} | {string.Join(" ", GetRow(i))}");
 
-            var lastRow = "    " + string.Join(" ", colConstraints.Select(c => c.ToString()));
+            var lastRow = "    " + string.Join(" ", colConstraints);
 
             return string.Join("\n", rows) + "\n" + lastRow;
         }
@@ -172,5 +192,7 @@ namespace BimaruApi.Domain
                 .Range(0, colConstraints.Length)
                 .Select(j => grid[rowIndex, j])];
         }
+
+        public int[][] Ships { get; }
     }
 }
