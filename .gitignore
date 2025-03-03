@@ -31,5 +31,9 @@ _ReSharper*/
 #Nuget packages folder
 packages/
 
+#Java related
 target/
 .idea/
+
+#Python related
+__pycache__
