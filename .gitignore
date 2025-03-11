@@ -37,3 +37,4 @@ target/
 
 #Python related
 __pycache__
+log/
