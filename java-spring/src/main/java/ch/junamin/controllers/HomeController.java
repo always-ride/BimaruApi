@@ -9,6 +9,6 @@ public class HomeController {
 
     @RequestMapping("/home")
     public String home() {
-        return "Hello Bimaru Universe!";
+        return "Hello Bimaru Universe of java-spring!";
     }
 }

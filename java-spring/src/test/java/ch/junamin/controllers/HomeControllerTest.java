@@ -1,5 +1,6 @@
 package ch.junamin.controllers;
 
+import static org.hamcrest.Matchers.startsWith;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,6 +20,6 @@ class HomeControllerTest {
     void home_shouldReturnHelloBimaruUniverse() throws Exception {
         mockMvc.perform(get("/api/home"))
                 .andExpect(status().isOk()) // Erwartet HTTP 200 OK
-                .andExpect(content().string("Hello Bimaru Universe!"));
+                .andExpect(content().string(startsWith("Hello Bimaru Universe")));
     }
 }

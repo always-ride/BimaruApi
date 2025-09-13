@@ -1,12 +1,10 @@
-# Web API rund um das Bimaru-Universum
-
-Hier sollen die Lösungen für verschiedene Bimaru-Aufgabenstellungen gefunden und retour geliefert werden.
+# Java/Spring-Version
 
 ## Voraussetzungen
 
 Sicherstellen dass Java, Maven und Docker laufen.
 
-```ps
+```powershell
 java -version
 mvn -v
 docker -v
@@ -14,13 +12,13 @@ docker -v
 
 Depencendies laden.
 
-```ps
+```powershell
 mvn clean install
 ```
 
 ## Erstellung eines neuen Builds, separate Ausführung der Tests und Start der Anwendung 
 
-```ps
+```powershell
 mvn clean package
 mvn test
 mvn spring-boot:run
@@ -28,15 +26,15 @@ mvn spring-boot:run
 
 Die Anwendung ist nun unter http://localhost:8080 erreichbar.
 
+## API-Testing
+
+Anfragen können via [BimaruApi.http](./BimaruApi.http) abgesetzt werden.
+
 ## Docker
 
 Docker-Image bauen und Container starten:
 
-```ps
-docker build -t bimaru-api .
-docker run -p 8080:8080 bimaru-api
+```powershell
+docker build -t bimaru-api-js .
+docker run -p 8080:8080 bimaru-api-js
 ```
-
-## Deployment
-
-Unter [bimaruapi.fly.dev/api/](https://bimaruapi.fly.dev/api/) kann das Projekt eingesehen werde.
