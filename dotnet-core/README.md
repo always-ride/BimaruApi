@@ -27,3 +27,12 @@ dotnet run --project BimaruApi/BimaruApi.csproj
 ```
 
 Die Anwendung ist nun unter http://localhost:5033 erreichbar.
+
+## Docker
+
+Docker-Image bauen und Container starten:
+
+```ps
+docker build -t bimaru-api .
+docker run -p 8080:8080 bimaru-api
+```
