@@ -7,6 +7,7 @@ name = "pypi"
 black = "*"
 pytest = "*"
 opencv-python = "*"
+pytesseract = "*"
 
 [dev-packages]
 

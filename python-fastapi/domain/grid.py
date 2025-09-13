@@ -11,6 +11,10 @@ class Grid(BaseRegion):
         super().__init__(image, thresh)
         self.cells = []
 
+    def detect_cells_and_size(self):
+        self.detect_cells()
+        self.detect_grid_size()
+
     def detect_cells(self):
         """Ermittelt die einzelnen Zellen des Rasters."""
         contours = self.find_contours()
@@ -49,7 +53,7 @@ class Grid(BaseRegion):
 
         self.cells = [Cell(self.image, self.thresh, *c) for c in filtered_cells]
 
-    def get_grid_size(self):
+    def detect_grid_size(self):
         """Bestimmt die Rastergröße anhand der Zellpositionen."""
         unique_x = []
         unique_y = []
@@ -63,4 +67,6 @@ class Grid(BaseRegion):
                 unique_y.append(cy)
 
         self.grid_size = round(np.mean([len(unique_x), len(unique_y)]))
-        return self.grid_size
+
+    def get_grid_size(self):
+         return self.grid_size
