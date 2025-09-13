@@ -3,7 +3,7 @@ namespace BimaruApi.Domain
     public class Solver(ISolvableBoard board)
     {
         private readonly ISolvableBoard board = board;
-        private readonly int[][] ships = [[4, 1], [3, 2], [2, 3], [1, 4]];
+        private readonly int[][] ships = board.Ships;
         private readonly HashSet<string> uniqueSolutions = [];
         private int solutionsCount;
 
@@ -22,7 +22,7 @@ namespace BimaruApi.Domain
             {
                 if (board.IsValidSolution())
                 {
-                    uniqueSolutions.Add(board.AsText);
+                    uniqueSolutions.Add(board.AsText.Replace('.', '~'));
                     solutionsCount++;
                 }
                 return;
